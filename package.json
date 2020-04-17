@@ -50,5 +50,10 @@
   },
   "engines": {
     "node": ">=8"
+  },
+  // transpile jsx and modern js features to run in todays browser.
+  "babel": {
+    "presets": [
+      "babel-preset-react-app"
   }
 }
