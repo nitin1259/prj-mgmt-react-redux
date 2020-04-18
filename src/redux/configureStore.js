@@ -12,3 +12,5 @@ export default function configureStore(initialState) {
     enhanceCompose(applyMiddleware(thunk, reduxImmutableStateInvariant()))
   );
 }
+
+//step-4: one store in redux
