@@ -1,23 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import HomePage from "../homePage/HomePage";
-import Courses from "../courses/Courses";
-import AboutPage from "../aboutPage/AboutPage";
+import { NavLink } from "react-router-dom";
+
+const activeStyle = { color: "orange" };
 
 function HeaderPage() {
   return (
     <nav>
-      <Link to="/" component={HomePage}>
+      <NavLink to="/" activeStyle={activeStyle} exact>
         Home
-      </Link>{" "}
+      </NavLink>{" "}
       |
-      <Link to="/courses" component={Courses}>
+      <NavLink to="/courses" activeStyle={activeStyle}>
         Courses
-      </Link>{" "}
+      </NavLink>{" "}
       |
-      <Link to="/about" component={AboutPage}>
+      <NavLink to="/about" activeStyle={activeStyle}>
         About
-      </Link>
+      </NavLink>
     </nav>
   );
 }
