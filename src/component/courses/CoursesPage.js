@@ -11,9 +11,14 @@ class CoursesPage extends Component {
     const course = { ...this.state.course, title: event.target.value };
     this.setState({ course });
   };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    alert("submit add course");
+  };
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <h2>Courses</h2>
         <h3>Add Course</h3>
         <input
