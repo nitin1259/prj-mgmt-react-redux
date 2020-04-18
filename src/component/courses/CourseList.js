@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function CourseList({ courses }) {
   return (
@@ -27,7 +28,7 @@ function CourseList({ courses }) {
               <td>
                 <Link to={"/course/" + course.slug}>{course.title}</Link>
               </td>
-              <td>{course.authorId}</td>
+              <td>{course.authorName}</td>
               <td>{course.category}</td>
             </tr>
           );
@@ -36,5 +37,9 @@ function CourseList({ courses }) {
     </table>
   );
 }
+
+CourseList.propTypes = {
+  courses: PropTypes.array.isRequired,
+};
 
 export default CourseList;

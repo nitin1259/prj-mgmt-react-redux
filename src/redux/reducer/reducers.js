@@ -1,9 +1,11 @@
 //step-3
 import { combineReducers } from "redux";
 import courses from "./courseReducer";
+import authors from "./authorReducer";
 
 const rootReducer = combineReducers({
   courses,
+  authors,
 }); // it will combine all reducers...
 
 export default rootReducer;
