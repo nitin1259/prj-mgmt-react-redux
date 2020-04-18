@@ -57,4 +57,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+/*
+// we can create mapDispatchToProps as an object
+const mapDispatchToProps = {
+  createCourse: courseActions.createCourse, // when declared as object each property is automatically bound to dispatch
+};
+*/
+
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
