@@ -3,38 +3,20 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import * as courseActions from "./../../redux/actions/courseActions";
 import { bindActionCreators } from "redux";
+import CourseList from "./CourseList";
 
 class CoursesPage extends Component {
-  state = {
-    course: {
-      title: "",
-    },
-  };
+  componentDidMount() {
+    this.props.actions.loadCourses().catch((error) => {
+      console.log("Error getting courses " + error);
+    });
+  }
 
-  handleChange = (event) => {
-    const course = { ...this.state.course, title: event.target.value };
-    this.setState({ course });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.props.actions.createCourse(this.state.course);
-  };
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h2>Courses</h2>
-        <h3>Add Course</h3>
-        <input
-          type="text"
-          onChange={this.handleChange}
-          value={this.state.course.title}
-        />
-        <input type="submit" value="Save" />
-        {this.props.courses.map((c) => (
-          <div key={c.title}>{c.title}</div>
-        ))}
-      </form>
+      <>
+        <CourseList courses={this.props.courses} />
+      </>
     );
   }
 }
@@ -53,7 +35,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     // createCourse: (course) => dispatch(courseActions.createCourse(course)),
-    actions: bindActionCreators(courseActions, dispatch), // this will bind all the action in course actions what all available
+    // actions: bindActionCreators(courseActions, dispatch), // this will bind all the action in course actions what all available
+    actions: {
+      loadCourses: bindActionCreators(courseActions.loadCourses, dispatch),
+    },
   };
 };
 
