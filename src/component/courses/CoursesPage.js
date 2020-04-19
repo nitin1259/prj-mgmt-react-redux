@@ -6,6 +6,7 @@ import * as authorActions from "./../../redux/actions/authorActions";
 import { bindActionCreators } from "redux";
 import CourseList from "./CourseList";
 import { Redirect } from "react-router-dom";
+import Spinner from "../common/Spinner";
 
 class CoursesPage extends Component {
   state = {
@@ -35,8 +36,11 @@ class CoursesPage extends Component {
         >
           Add Course
         </button>
-
-        <CourseList courses={this.props.courses} />
+        {this.props.loading ? (
+          <Spinner />
+        ) : (
+          <CourseList courses={this.props.courses} />
+        )}
       </>
     );
   }
@@ -46,6 +50,7 @@ CoursesPage.propTypes = {
   actions: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 //when declaring mapStateToProps be specific. request only the data your component needs.
@@ -64,6 +69,7 @@ const mapStateToProps = (state) => {
           })
         : [],
     authors: state.authors,
+    loading: state.apiStatus > 0,
   };
 };
 
