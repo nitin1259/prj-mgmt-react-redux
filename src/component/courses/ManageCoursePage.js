@@ -6,6 +6,7 @@ import { loadAuthors } from "./../../redux/actions/authorActions";
 import { newCourse } from "./../../../tools/mockData";
 import CourseForm from "./CourseForm";
 import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
 function ManageCoursePage({
   courses,
@@ -41,6 +42,7 @@ function ManageCoursePage({
     saveCourse(course)
       .then(() => {
         console.log("Course saved");
+        toast.success("Saved Successfully!!!");
         history.push("/courses");
       })
       .catch((err) => {
@@ -49,6 +51,7 @@ function ManageCoursePage({
           onSave: err.message,
         });
         setSaving(false);
+        toast.error("Error while saving the data!!!");
       });
   }
 
