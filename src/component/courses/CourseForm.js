@@ -14,7 +14,7 @@ function CourseForm({
   return (
     <form onSubmit={onSave}>
       <h2>{course.id ? "Edit" : "Add "} Course</h2>
-      {errors.onSave && (
+      {errors && errors.onSave && (
         <div className="alert alert-danger" role="alert">
           {errors.onSave}
         </div>
@@ -24,7 +24,7 @@ function CourseForm({
         label="Title"
         value={course.title}
         onChange={onChange}
-        error={errors.title}
+        error={errors && errors.title}
       />
 
       <SelectInput
@@ -37,7 +37,7 @@ function CourseForm({
           text: author.name,
         }))}
         onChange={onChange}
-        error={errors.author}
+        error={errors && errors.author}
       />
 
       <TextInput
@@ -45,7 +45,7 @@ function CourseForm({
         label="Category"
         value={course.category}
         onChange={onChange}
-        error={errors.category}
+        error={errors && errors.category}
       />
 
       <button type="submit" disabled={saving} className="btn btn-primary">
