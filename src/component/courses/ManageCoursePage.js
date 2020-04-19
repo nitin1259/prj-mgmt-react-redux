@@ -1,29 +1,28 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { loadCourses } from "./../../redux/actions/courseActions";
 import { loadAuthors } from "./../../redux/actions/authorActions";
 
-class CoursesPage extends Component {
-  componentDidMount() {
-    if (this.props.courses.length === 0) {
+function ManageCoursePage(props) {
+  const { courses, authors, loadCourses, loadAuthors } = props;
+  useEffect(() => {
+    if (courses.length === 0) {
       loadCourses().catch((error) => {
         console.log("Error getting courses " + error);
       });
     }
-    if (this.props.authors.length === 0) {
+    if (authors.length === 0) {
       loadAuthors().catch((err) => {
         console.log("Error getting authors " + err);
       });
     }
-  }
+  }, []);
 
-  render() {
-    return <></>;
-  }
+  return <h2>Course Form</h2>;
 }
 
-CoursesPage.propTypes = {
+ManageCoursePage.propTypes = {
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
   loadAuthors: PropTypes.func.isRequired,
@@ -56,7 +55,7 @@ const mapDispatchToProps = {
   loadAuthors: loadAuthors,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
 //mapDispatchToProps: will let us declare what actions to pass to our component on props,
 // this is an optional parameter, so we are not using it right now.
 //When we omit mapDispatchToProps, our compoent gets a dispatch property injected automatically, so we can use it to dispatch an actions.
