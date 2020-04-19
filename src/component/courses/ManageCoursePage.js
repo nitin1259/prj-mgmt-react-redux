@@ -36,8 +36,19 @@ function ManageCoursePage({
     }
   }, [props.course]);
 
+  function isValidForm() {
+    const errors = {};
+    if (!course.title) errors.title = "Title is required";
+    if (!course.authorId) errors.author = "Author is required";
+    if (!course.category) errors.category = "Title is required";
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
+
   function handleSave() {
     event.preventDefault();
+    if (!isValidForm()) return;
     setSaving(true);
     saveCourse(course)
       .then(() => {
