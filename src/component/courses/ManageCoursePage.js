@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { loadCourses } from "./../../redux/actions/courseActions";
+import { loadCourses, saveCourse } from "./../../redux/actions/courseActions";
 import { loadAuthors } from "./../../redux/actions/authorActions";
 import { newCourse } from "./../../../tools/mockData";
 import CourseForm from "./CourseForm";
@@ -11,6 +11,7 @@ function ManageCoursePage({
   authors,
   loadCourses,
   loadAuthors,
+  saveCourse,
   ...props
 }) {
   const [course, setCourse] = useState({ ...props.course });
@@ -31,6 +32,13 @@ function ManageCoursePage({
 
   function handleSave() {
     event.preventDefault();
+    saveCourse(course)
+      .then(() => {
+        console.log("Course saved");
+      })
+      .catch((err) => {
+        console.log("error while saving form" + err);
+      });
   }
 
   function handleChange(event) {
@@ -60,6 +68,7 @@ ManageCoursePage.propTypes = {
   loadAuthors: PropTypes.func.isRequired,
   loadCourses: PropTypes.func.isRequired,
   course: PropTypes.object.isRequired,
+  saveCourse: PropTypes.func.isRequired,
 };
 
 //when declaring mapStateToProps be specific. request only the data your component needs.
@@ -87,6 +96,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   loadCourses: loadCourses, // when declared as object each property is automatically bound to dispatch
   loadAuthors: loadAuthors,
+  saveCourse: saveCourse,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
