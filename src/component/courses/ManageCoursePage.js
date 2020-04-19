@@ -5,6 +5,7 @@ import { loadCourses, saveCourse } from "./../../redux/actions/courseActions";
 import { loadAuthors } from "./../../redux/actions/authorActions";
 import { newCourse } from "./../../../tools/mockData";
 import CourseForm from "./CourseForm";
+import Spinner from "../common/Spinner";
 
 function ManageCoursePage({
   courses,
@@ -17,6 +18,7 @@ function ManageCoursePage({
 }) {
   const [course, setCourse] = useState({ ...props.course });
   const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
   //   const { courses, authors, loadCourses, loadAuthors } = props;
   useEffect(() => {
     if (courses.length === 0) {
@@ -35,6 +37,7 @@ function ManageCoursePage({
 
   function handleSave() {
     event.preventDefault();
+    setSaving(true);
     saveCourse(course)
       .then(() => {
         console.log("Course saved");
@@ -54,14 +57,16 @@ function ManageCoursePage({
     }));
   }
 
-  return (
+  return authors.length === 0 || courses.length === 0 ? (
+    <Spinner />
+  ) : (
     <CourseForm
       course={course}
       errors={errors}
       onSave={handleSave}
       authors={authors}
       onChange={handleChange}
-      saving={false}
+      saving={saving}
     />
   );
 }
