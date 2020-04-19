@@ -45,6 +45,10 @@ function ManageCoursePage({
       })
       .catch((err) => {
         console.log("error while saving form" + err);
+        setErrors({
+          onSave: err.message,
+        });
+        setSaving(false);
       });
   }
 
