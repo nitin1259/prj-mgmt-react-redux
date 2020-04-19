@@ -77,6 +77,22 @@
       "category": "Cloud",
       "createdAt": 1587295388264,
       "slug": "oracle-cloud"
+    },
+    {
+      "id": 12,
+      "title": "Oracle Cloud Session",
+      "authorId": 3,
+      "category": "Tutorials",
+      "createdAt": 1587296103993,
+      "slug": "oracle-cloud-session"
+    },
+    {
+      "id": 13,
+      "title": "Oracle Certified Java Programmer",
+      "authorId": 2,
+      "category": "local",
+      "createdAt": 1587296166346,
+      "slug": "oracle-certified-java-programmer"
     }
   ],
   "authors": [

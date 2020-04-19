@@ -12,6 +12,7 @@ function ManageCoursePage({
   loadCourses,
   loadAuthors,
   saveCourse,
+  history,
   ...props
 }) {
   const [course, setCourse] = useState({ ...props.course });
@@ -22,19 +23,22 @@ function ManageCoursePage({
       loadCourses().catch((error) => {
         console.log("Error getting courses " + error);
       });
+    } else {
+      setCourse({ ...props.course });
     }
     if (authors.length === 0) {
       loadAuthors().catch((err) => {
         console.log("Error getting authors " + err);
       });
     }
-  }, []);
+  }, [props.course]);
 
   function handleSave() {
     event.preventDefault();
     saveCourse(course)
       .then(() => {
         console.log("Course saved");
+        history.push("/courses");
       })
       .catch((err) => {
         console.log("error while saving form" + err);
@@ -69,14 +73,25 @@ ManageCoursePage.propTypes = {
   loadCourses: PropTypes.func.isRequired,
   course: PropTypes.object.isRequired,
   saveCourse: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 //when declaring mapStateToProps be specific. request only the data your component needs.
 //ownProps parameter contains the props that is related to this component. its not required right now so we are remoeving.
 //mapStateToProps(state, ownProps) takes two arguments.
-const mapStateToProps = (state) => {
+
+export function getCourseBySlug(courses, slug) {
+  return courses.find((course) => course.slug === slug) || null;
+}
+
+const mapStateToProps = (state, ownProps) => {
+  const slug = ownProps.match.params.slug;
+  const course =
+    slug && state.courses.length > 0
+      ? getCourseBySlug(state.courses, slug)
+      : newCourse;
   return {
-    course: newCourse,
+    course,
     courses: state.courses,
     authors: state.authors,
   };
