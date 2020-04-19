@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import CourseList from "./CourseList";
 import { Redirect } from "react-router-dom";
 import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
 class CoursesPage extends Component {
   state = {
@@ -25,6 +26,23 @@ class CoursesPage extends Component {
     }
   }
 
+  // handleDeleteCourse = (course) => {
+  //   toast.success("Successfully deleted");
+  //   this.props.actions.deleteCourse(course).catch((err) => {
+  //     toast.error("Error while deleting: " + err, { autoClose: false });
+  //   });
+  // };
+
+  // async await way
+  handleDeleteCourse = async (course) => {
+    toast.success("Successfully deleted");
+    try {
+      await this.props.actions.deleteCourse(course);
+    } catch (err) {
+      toast.error("Error while deleting: " + err, { autoClose: false });
+    }
+  };
+
   render() {
     return (
       <>
@@ -39,7 +57,10 @@ class CoursesPage extends Component {
         {this.props.loading ? (
           <Spinner />
         ) : (
-          <CourseList courses={this.props.courses} />
+          <CourseList
+            courses={this.props.courses}
+            onDeleteClick={this.handleDeleteCourse}
+          />
         )}
       </>
     );
@@ -80,6 +101,7 @@ const mapDispatchToProps = (dispatch) => {
     actions: {
       loadCourses: bindActionCreators(courseActions.loadCourses, dispatch),
       loadAuthors: bindActionCreators(authorActions.loadAuthors, dispatch),
+      deleteCourse: bindActionCreators(courseActions.deleteCourse, dispatch),
     },
   };
 };
