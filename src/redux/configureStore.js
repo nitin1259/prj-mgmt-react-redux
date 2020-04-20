@@ -1,16 +1,7 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import rootReducer from "./reducer/reducers";
-import reduxImmutableStateInvariant from "redux-immutable-state-invariant"; //it will notify(warn) us if we accidentally mutate redux state..
-import thunk from "redux-thunk"; // redux middleware is a way to enhance the redux behaviour
+// Use CommonJS require below so we can dynamically import during build-time.
 
-export default function configureStore(initialState) {
-  const enhanceCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support to Redux Dev tool
-
-  return createStore(
-    rootReducer,
-    initialState,
-    enhanceCompose(applyMiddleware(thunk, reduxImmutableStateInvariant()))
-  );
+if (process.env.NODE_ENV === "production") {
+  module.exports = require("./configureStore.prod");
+} else {
+  module.exports = require("./configureStore.dev");
 }
-
-//step-4: one store in redux
