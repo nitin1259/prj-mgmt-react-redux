@@ -8,19 +8,19 @@ export function createCourse(course) {
 }
 
 //object short-hand syntax: we can ommit the right-hand side, since it matches left-hand side..
-function loadCoursesSuccess(courses) {
+export function loadCoursesSuccess(courses) {
   return { type: actionTypes.LOAD_COURSES_SUCCESS, courses };
 }
 
-function updateCourseSuccess(course) {
+export function updateCourseSuccess(course) {
   return { type: actionTypes.UPDATE_COURSE_SUCCESS, course };
 }
 
-function createCourseSuccess(course) {
+export function createCourseSuccess(course) {
   return { type: actionTypes.CREATE_COURSE_SUCCESS, course };
 }
 
-function deleteCourseOptimistic(course) {
+export function deleteCourseOptimistic(course) {
   return { type: actionTypes.DELETE_COURSE_OPTIMISTIC, course };
 }
 
