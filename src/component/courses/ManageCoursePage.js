@@ -8,7 +8,7 @@ import CourseForm from "./CourseForm";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
-function ManageCoursePage({
+export function ManageCoursePage({
   courses,
   authors,
   loadCourses,
@@ -46,7 +46,7 @@ function ManageCoursePage({
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave() {
+  function handleSave(event) {
     event.preventDefault();
     if (!isValidForm()) return;
     setSaving(true);
